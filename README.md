@@ -1,42 +1,45 @@
-ColumnTransformer is a tool in scikit-learn used to apply different preprocessing steps to different columns of a dataset at the same time.
-It is especially useful when your dataset has both numerical and categorical features.
+✨ What is ColumnTransformer?
 
-Instead of preprocessing everything separately, ColumnTransformer combines all transformations into one clean pipeline, making the workflow organized, reproducible, and less error-prone.
+ColumnTransformer is a preprocessing tool from scikit-learn that lets you apply different transformations to different columns of a dataset at the same time.
 
-Why use ColumnTransformer?
+👉 It is mainly used when:
 
-Handle numeric and categorical columns differently
+Some columns are numeric (need scaling)
 
-Prevent data leakage
+Some columns are categorical (need encoding)
 
-Works smoothly with Pipelines
+Instead of preprocessing columns separately, ColumnTransformer combines everything into one clean pipeline.
 
-Ideal for real-world ML projects
+🧠 Why use it?
 
-Small Example
+Keeps preprocessing organized & readable
+
+Prevents data leakage
+
+Works perfectly with pipelines & models
+
+Ideal for real-world datasets
+
+⚙️ How it works (Simple Flow)
+Numeric Columns  ──▶ Scaling
+Categorical Cols ──▶ One-Hot Encoding
+                     ↓
+              Combined Feature Matrix
+
+🧪 Small Example
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
-# column groups
-num_cols = ["age", "salary"]
-cat_cols = ["gender", "city"]
-
-# ColumnTransformer
 preprocessor = ColumnTransformer(
     transformers=[
-        ("num", StandardScaler(), num_cols),
-        ("cat", OneHotEncoder(), cat_cols)
+        ("num", StandardScaler(), ["age", "salary"]),
+        ("cat", OneHotEncoder(), ["gender"])
     ]
 )
 
-# apply preprocessing
 X_transformed = preprocessor.fit_transform(X)
 
 
-What happens here?
-
-Numerical columns → scaled
-
-Categorical columns → one-hot encoded
-
-Output → single transformed dataset ready for ML model
+✅ Numeric columns are scaled
+✅ Categorical columns are encoded
+✅ Output is model-ready
